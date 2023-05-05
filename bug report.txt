@@ -1,0 +1,34 @@
+Bug Report:
+
+Summary:
+The code has a potential division by zero error when calculating the "coordinatePositionsPerMM" variable. 
+
+Description:
+The "calculateColumnLocation" method takes a HSSFSheet object, an integer startingColumn, and a double reqImageWidthMM as inputs. 
+It calculates the width of the columns starting from the startingColumn until the total width reaches the required image width (reqImageWidthMM). 
+It then returns a ClientAnchorDetail object with the starting and ending columns, and an inset value.
+
+However, the method doesn't check whether the "colWidthMM" variable is zero or not before using it to calculate the "coordinatePositionsPerMM" variable.
+ If colWidthMM is zero, the division will throw an ArithmeticException.
+
+Steps to reproduce:
+1. Call the "calculateColumnLocation" method with a sheet, startingColumn, and reqImageWidthMM values such that the column width for the startingColumn is 
+zero.
+2. Observe the resulting ArithmeticException.
+
+Expected result:
+The method should check whether the "colWidthMM" variable is zero or not before using it in the division to calculate "coordinatePositionsPerMM". 
+
+Suggested solution:
+Add an if statement before the division to check whether colWidthMM is zero or not. If it is zero, set coordinatePositionsPerMM to zero or throw an
+ exception.
+
+Example fix:
+if(colWidthMM == 0){
+    coordinatePositionsPerMM = 0;
+} else {
+    coordinatePositionsPerMM = ConvertImageUnits.TOTAL_COLUMN_COORDINATE_POSITIONS / colWidthMM;
+}
+
+Severity:
+Minor - This bug may cause an ArithmeticException, but it is not a critical issue that will affect the functionality of the program.
