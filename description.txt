@@ -1,0 +1,56 @@
+Project description:
+
+Creating course and test schedules, maintaining modifications to these schedules, sharing rooms with other events, 
+and allocating students to certain classes are all supported by the comprehensive educational scheduling system known as UniTime.
+It is a distributed system that enables various university and departmental schedule managers to collaborate in order to create
+and change a schedule that satisfies their various organisational needs while minimising student course conflicts. 
+It can be interfaced with an existing student information system or used independently to build and maintain a school's class and exam schedule. 
+The method was first created in cooperation with academic staff, students, and faculty at universities in North America and Europe. 
+The software is provided without charge with an open source licence in an effort that other colleges and universities may find it useful
+for better scheduling their students or will want to contribute to ongoing research in this field. 
+
+Techniques used:
+
+To make sure that the UniTime scheduling system satisfies the organization's general aims and objectives, Top-down strategies are utilised for 
+making and managing course and exam schedules, sharing spaces with other events, and assigning students to specific classes.
+This strategy makes it possible for different schedule managers to work together and modify the schedule while
+ensuring that student course conflicts are kept to a minimum.
+The class and/or test schedule for a school can be created and maintained using the UniTime scheduling system, which can be interfaced with an existing student
+information system or used independently. The scheduling system can be tailored to the unique requirements of the university or department thanks to this degree of flexibility.
+In collaboration with academic staff, students, and faculty at institutions in North America and Europe, the UniTime scheduling mechanism was established. Due to the open-source
+licence and free software, additional schools and universities can use the scheduling system and contribute to continuing study in the area.
+
+The system's four main parts—Course:
+1-Timetabling & Management: 
+which is responsible for planning effective schedules and controlling resources, courses, and classrooms. 
+It entails creating a schedule that satisfies the requirements of both professors and students while preventing resource and class duplication.
+
+2-Examination Timetabling: 
+This function is essential for ensuring that exams are conducted in a fair and organized manner;This includes determining the date, time, and location of
+each exam,as well as ensuring there are no conflicts in the schedule for students with multiple exams, and  also responsible for ensuring exam rooms are appropriately allocated.
+
+3-Event Management:
+utilised for more than just lessons and exams to schedule different activities in campus spaces.The software generates events for every exam and class
+meeting for the academic session. Using the Events interface on the web
+
+4-Student Scheduling:
+To ensure that every student's educational needs are addressed, this procedure entails matching the sets of classes that each student needs to the available class seats. 
+
+all function in combination to deliver a full suite of tools for handling challenging scheduling issues in educational institutions.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
