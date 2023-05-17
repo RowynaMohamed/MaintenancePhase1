@@ -1,0 +1,1 @@
+we use the equals method provided by the Integer class to compare the itype.getId() value to iUniqueId. This avoids the comparison of unrelated types and ensures that the comparison is performed correctly.

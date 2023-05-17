@@ -42,51 +42,63 @@ public class ItypeDescEditForm implements UniTimeForm {
     private Integer iParent = null;
 
     @Override
-	public void validate(UniTimeAction action) {
+    public void validate(UniTimeAction action) {
         try {
-            if (iAbbreviation==null || iAbbreviation.trim().length()==0)
-            	action.addFieldError("form.abbreviation", MSG.errorRequiredField(MSG.fieldAbbreviation()));
-            
-            if (iName==null || iName.trim().length()==0)
+            if (iAbbreviation == null || iAbbreviation.trim().length() == 0) {
+                action.addFieldError("form.abbreviation", MSG.errorRequiredField(MSG.fieldAbbreviation()));
+            } else {
+                // Clear any existing validation errors for this field
+                action.clearFieldErrors("form.abbreviation");
+                // Check if an ItypeDesc object with the given abbreviation already exists
+                ItypeDesc itype = (ItypeDesc) ItypeDescDAO.getInstance().getSession().createQuery(
+                                "from ItypeDesc x where x.abbv = :abbv and x.id != :id")
+                        .setString("abbv", iAbbreviation).setInteger("id", Integer.valueOf(iId)).setMaxResults(1).uniqueResult();
+                if (itype != null) {
+                    action.addFieldError("form.abbreviation", MSG.errorAlreadyExists(iAbbreviation));
+                }
+            }
+
+            if (iName == null || iName.trim().length() == 0) {
                 action.addFieldError("form.name", MSG.errorRequiredField(MSG.fieldName()));
-            
-            try {
-                if (iId==null || iId.trim().length()==0) {
-                    action.addFieldError("form.id", MSG.errorRequiredField(MSG.fieldIType()));
-                } else {
+            } else {
+                // Clear any existing validation errors for this field
+                action.clearFieldErrors("form.name");
+                // Check if an ItypeDesc object with the given name already exists
+                ItypeDesc itype = (ItypeDesc) ItypeDescDAO.getInstance().getSession().createQuery(
+                                "from ItypeDesc x where x.desc = :name and x.id != :id")
+                        .setString("name", iName).setInteger("id", Integer.valueOf(iId)).setMaxResults(1).uniqueResult();
+                if (itype != null) {
+                    action.addFieldError("form.name", MSG.errorAlreadyExists(iName));
+                }
+            }
+
+            if (iId == null || iId.trim().length() == 0) {
+                action.addFieldError("form.id", MSG.errorRequiredField(MSG.fieldIType()));
+            } else {
+                // Clear any existing validation errors for this field
+                action.clearFieldErrors("form.id");
+                try {
                     Integer id = Integer.valueOf(iId);
                     ItypeDesc itype = new ItypeDescDAO().get(id);
-                    if (itype!=null && (iUniqueId==null || iUniqueId<0 || itype.equals(iUniqueId)))
+                    if (itype != null && (iUniqueId == null || iUniqueId < 0 || !Integer.valueOf(itype.getId()).equals(iUniqueId))) {
                         action.addFieldError("form.id", MSG.errorAlreadyExists(iId));
-                    
-                    itype = (ItypeDesc)ItypeDescDAO.getInstance().getSession().createQuery(
-                    		"from ItypeDesc x where x.abbv = :abbv and x.id != :id")
-                    		.setString("abbv", iAbbreviation).setInteger("id", id).setMaxResults(1).uniqueResult();
-                    if (itype != null)
-                    	action.addFieldError("abbreviation", MSG.errorAlreadyExists(iAbbreviation));
-                    		
-                    itype = (ItypeDesc)ItypeDescDAO.getInstance().getSession().createQuery(
-                    		"from ItypeDesc x where x.desc = :name and x.id != :id")
-                    		.setString("name", iName).setInteger("id", id).setMaxResults(1).uniqueResult();
-                    if (itype != null)
-                    	action.addFieldError("form.name", MSG.errorAlreadyExists(iName));
+                    }
+                } catch (NumberFormatException e) {
+                    action.addFieldError("form.id", MSG.errorNotNumber(iId));
                 }
-            } catch (NumberFormatException e) {
-                action.addFieldError("form.id", MSG.errorNotNumber(iId));
             }
         } catch (Exception e) {
             Debug.error(e);
             action.addFieldError("form.id", e.getMessage());
         }
     }
-
     @Override
 	public void reset() {
         iId = null; iUniqueId = -1;
         iAbbreviation = null; iReference = null; iName = null;
         iType = 1; iOrganized = false;
 	}
-	
+
     public Integer getUniqueId() { return iUniqueId; }
     public void setUniqueId(Integer uniqueId) { iUniqueId = uniqueId; }
     public String getId() { return iId; }
