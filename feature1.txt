@@ -1,0 +1,1 @@
+This method retrieves all reservations that fall within a given date range for the current session. It takes two Date objects as parameters, the start date and end date of the range, and returns a List of Reservation objects.

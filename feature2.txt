@@ -1,0 +1,1 @@
+This method retrieves all reservations that have a given limit for the current session. It takes an integer limit as a parameter and returns a List of Reservation objects.
