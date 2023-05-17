@@ -285,7 +285,12 @@ public class OnlineSectioningTest extends OnlineSectioningTestFwk {
 		            penalty += (iWeight.get(day + "." + time(slot))).doubleValue();
 	        	}
 	        }
-	        return penalty / nrSlots;
+	        // Check if nrSlots is zero before dividing
+    		if (nrSlots == 0) {
+       			 return 0.0;
+   		 } else {
+        	return penalty / nrSlots;
+    		}
 	    }
 	    
 	    public double getPenalty(ClassAssignmentInterface.CourseAssignment assignment) {
