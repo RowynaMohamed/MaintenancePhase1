@@ -221,4 +221,14 @@ public List<Reservation> getReservationByLimit(int limit) {
     return reservations;
 }
 
+public List<Reservation> getReservationByDate(Date startDate, Date endDate) {
+    List<Reservation> reservations = (List<Reservation>) getHibSession().createQuery(
+        "select r from Reservation r where r.instructionalOffering.session.uniqueId = :sessionId and r.startDate >= :startDate and r.endDate <= :endDate")
+        .setLong("sessionId", session.getUniqueId())
+        .setParameter("startDate", startDate)
+        .setParameter("endDate", endDate)
+        .list();
+    return reservations;
+}
+
 }
