@@ -212,4 +212,13 @@ public class ReservationExport extends BaseExport {
 		}
 	}
 
+public List<Reservation> getReservationByLimit(int limit) {
+    List<Reservation> reservations = (List<Reservation>) getHibSession().createQuery(
+        "select r from Reservation r where r.instructionalOffering.session.uniqueId = :sessionId and r.limit = :limit")
+        .setLong("sessionId", session.getUniqueId())
+        .setParameter("limit", limit)
+        .list();
+    return reservations;
+}
+
 }
