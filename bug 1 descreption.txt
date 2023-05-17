@@ -1,0 +1,4 @@
+we check if nrSlots is zero before performing the division. 
+If it is zero, we return 0.0, which is a reasonable penalty value when there are no time slots assigned. 
+If nrSlots is non-zero, we perform the division as before and return the resulting penalty value. 
+This ensures that we won't divide by zero and avoids the potential for an ArithmeticException.
